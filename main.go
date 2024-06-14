@@ -8,25 +8,25 @@ import (
 )
 
 type TemplateData struct {
-	NamespaceName                    string
-	CostCenterID                     string
-	ComputeType                      string
-	DevGroup                         []string
-	AdminGroup                       []string
-	DeploymentName                   string
-	AppLabel                         string
-	PolicyName                       string
-	AWSAccountNumber                 string
-	RepoNameInECR                    string
-	TagPattern                       string
-	ReplicaCount                     int
-	ContainerName                    string
-	ContainerImage                   string
-	ContainerPort                    int
-	ServiceName                      string
-	ServicePort                      int
-	IngressName                      string
-	IngressHost                      string
+	NamespaceName    string
+	CostCenterID     string
+	ComputeType      string
+	DevGroup         []string
+	AdminGroup       []string
+	DeploymentName   string
+	AppLabel         string
+	PolicyName       string
+	AWSAccountNumber string
+	RepoNameInECR    string
+	TagPattern       string
+	ReplicaCount     int
+	ContainerName    string
+	ContainerImage   string
+	ContainerPort    int
+	ServiceName      string
+	ServicePort      int
+	IngressName      string
+	IngressHost      string
 }
 
 func main() {
@@ -44,12 +44,12 @@ func main() {
 
 	// Parse template file
 	funcMap := template.FuncMap{
-		"toJson": func(v interface{}) string {
+		"toJsonArray": func(v []string) string {
 			a, _ := json.Marshal(v)
 			return string(a)
 		},
 	}
-	tmpl, err := template.New("namespace.yaml").Funcs(funcMap).ParseFiles("namespace.yaml")
+	tmpl, err := template.New("template.yaml").Funcs(funcMap).ParseFiles("template.yaml")
 	if err != nil {
 		fmt.Printf("Error parsing template: %v", err)
 	}
