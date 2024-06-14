@@ -49,7 +49,7 @@ func main() {
 			return string(a)
 		},
 	}
-	tmpl, err := template.New("template.yaml").Funcs(funcMap).ParseFiles("template.yaml")
+	tmpl, err := template.New("namespace.yaml").Funcs(funcMap).ParseFiles("namespace.yaml")
 	if err != nil {
 		fmt.Printf("Error parsing template: %v", err)
 	}
