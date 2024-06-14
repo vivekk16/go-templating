@@ -1,0 +1,64 @@
+# Deployment Template
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.DeploymentName}}
+  namespace: {{.NamespaceName}}
+  labels:
+    app: {{.AppLabel}}
+  annotations:
+    app.lilly.com/flux.automated: "true"
+    app.lilly.com/flux.simple.{{.PolicyName}}: "{{.AWSAccountNumber}};{{.RepoNameInECR}};glob:{{.TagPattern}}"
+    wave.pusher.com/update-on-config-change: "true"
+spec:
+  replicas: {{.ReplicaCount}}
+  selector:
+    matchLabels:
+      app: {{.AppLabel}}
+  template:
+    metadata:
+      labels:
+        app: {{.AppLabel}}
+    spec:
+      containers:
+      - name: {{.ContainerName}}
+        image: {{.ContainerImage}} # {"$imagepolicy": "{{.NamespaceName}}:{{.PolicyName}}"}
+        ports:
+        - containerPort: {{.ContainerPort}}
+        {{.AdditionalContainerConfiguration}}
+      {{.AdditionalPodConfiguration}}
+
+---
+# Service Template
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.ServiceName}}
+  namespace: {{.NamespaceName}}
+spec:
+  selector:
+    app: {{.AppLabel}}
+  ports:
+    - protocol: TCP
+      port: {{.ServicePort}}
+      targetPort: {{.ContainerPort}}
+
+---
+# Ingress Template
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{.IngressName}}
+  namespace: {{.NamespaceName}}
+spec:
+  rules:
+    - host: {{.IngressHost}}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{.ServiceName}}
+                port:
+                  number: {{.ServicePort}}

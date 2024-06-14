@@ -1,0 +1,22 @@
+{
+    "NamespaceName": "example-namespace",
+    "CostCenterID": "12345",
+    "ComputeType": "serverless",
+    "DevGroup": "dev-group",
+    "AdminGroup": "admin-group",
+    "DeploymentName": "example-deployment",
+    "AppLabel": "example-app",
+    "PolicyName": "docs-policy",
+    "AWSAccountNumber": "283234040926",
+    "RepoNameInECR": "infra_apps",
+    "TagPattern": "sha-.*",
+    "ReplicaCount": 3,
+    "ContainerName": "example-container",
+    "ContainerImage": "nginx:latest",
+    "ContainerPort": 80,
+    "ServiceName": "example-service",
+    "ServicePort": 8080,
+    "IngressName": "example-ingress",
+    "IngressHost": "example.com"
+  }
+  

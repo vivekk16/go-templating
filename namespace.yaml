@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{.NamespaceName}}
+  labels:
+    cost-center: {{.CostCenterID}}
+  annotations:
+    app.lrl.lilly.com/compute: {{.ComputeType}}
+    app.lilly.com/cloud-browser-auth: {{.AuthConfigs}} # optional
+    app.lilly.com/sg-rule: {{.Interface}} # optional
+    app.lilly.com/argo.automated: "true"
+    app.lilly.com/argo.config: |-
+      {
+        "roles": {
+          "readADGroups": [ {{.DevGroup}} ],
+          "adminADGroups": [ {{.AdminGroup}} ]
+        }
+      }
