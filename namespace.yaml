@@ -10,7 +10,7 @@ metadata:
     app.lilly.com/argo.config: |-
       {
         "roles": {
-          "readADGroups": [ {{.DevGroup}} ],
-          "adminADGroups": [ {{.AdminGroup}} ]
+          "readADGroups": {{.DevGroup}},
+          "adminADGroups": {{.AdminGroup}}
         }
       }
