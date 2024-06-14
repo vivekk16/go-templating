@@ -43,7 +43,7 @@ func main() {
 	}
 
 	// Parse template file
-	tmpl, err := template.ParseFiles("template.yaml")
+	tmpl, err := template.ParseFiles("namespace.yaml")
 	if err != nil {
 		fmt.Printf("Error parsing template: %v", err)
 	}
